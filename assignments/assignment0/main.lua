@@ -251,7 +251,7 @@ function love.update(dt)
     -- end
     -- Player 2 should be moving no matter what
     if gameState == 'play' then
-        if ball.dy <= 0 then
+        if ball.dx <= 0 then
             player2.dy = 0
         else
             if player2.dy == 0 then
@@ -260,6 +260,12 @@ function love.update(dt)
                 if player2.y == 0 then
                     player2.dy = PADDLE_SPEED
                 elseif player2.y == VIRTUAL_HEIGHT - player2.height then
+                    player2.dy = -PADDLE_SPEED
+                end
+
+                if ball.y > player2.y + player2.height then
+                    player2.dy = PADDLE_SPEED
+                elseif ball.y < player2.y then
                     player2.dy = -PADDLE_SPEED
                 end
             end
